@@ -7,37 +7,42 @@ class MemoryGame {
     this.pairsGuessed = 0;
   }
 
-  
+  shuffleCards() {
+    let shuffle = cards => {
+      let indexOfCard = cards.length;
+      // While there remain elements to shuffle...
+      while (indexOfCard !== 0) {
+        // Pick a remaining element...
 
-  shuffleCards(cards) {
-    for (let i = cards.length - 1; i > 0 ; i--) {
-      const j = Math.floor(Math.random() * i);
-      
-      // const temp = cards[i]
-      // cards[i] = cards[j]
-      // cards[j] = temp
-    }
-    return undefined;
-  };
+        let randomIndex = Math.floor(Math.random() * indexOfCard);
+        indexOfCard--;
+
+        // And swap it with the current element.
+
+        let randomCard = cards[indexOfCard];
+        cards[indexOfCard] = cards[randomIndex];
+        cards[randomIndex] = randomCard;
+      }
+      return cards;
+    };
+    shuffle(this.cards);
+  }
 
   checkIfPair(card1, card2) {
     if (card1 !== card2) {
-      this.pairsClicked ++;
+      this.pairsClicked++;
       return false;
-    } else if (card1 === card2){
-      this.pairsGuessed ++;
+    } else if (card1 === card2) {
+      this.pairsGuessed++;
       return true;
     }
-  };
+  }
 
   isFinished() {
-    if (pairsGuessed === this.pickedCards.length) {
+    if (this.pairsGuessed === this.cards.length / 2) {
       return true;
-    } else if (pairsGuessed < this.pickedCards.length) {
+    } else {
       return false;
-    }  return false;
-  } 
-};
-
-
-
+    }
+  }
+}
